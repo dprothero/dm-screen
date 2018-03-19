@@ -1,0 +1,27 @@
+.AdminForm {
+  margin: 2rem;
+}
+
+.AdminForm div {
+  margin-bottom: 1rem;
+}
+
+.AdminForm div strong {
+  width: 4rem;
+  display: inline-block;
+}
+
+.AdminForm div input[type=text] {
+  width: 500px;
+  padding: 8px;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgray;
+}
+
+hr {
+  border-width: 1px;
+  border-style: solid;
+  border-color: lightgray;
+}
