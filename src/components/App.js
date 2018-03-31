@@ -33,6 +33,16 @@ class App extends Component {
     db.onCurrentViewChanged(snapshot => {
       this.setState(() => (snapshot.val()));
     });
+
+    db.findHistoryItemByUrl("https://i2.wp.com/nerdarchy.com/wp-content/uploads/2018/01/Lay_on_Hands.jpg?fit=482%2C400&ssl=1", snapshot => {
+      const records = snapshot.val();
+      if(records) {
+        const foundRecord = records[Object.keys(records)[0]];
+        console.log(foundRecord);
+      } else {
+        console.log('Not found');
+      }
+    });
   }
 
   render() {
