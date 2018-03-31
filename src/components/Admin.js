@@ -11,6 +11,7 @@ class AdminPage extends Component {
     this.state = {
       url: props.url,
       title: props.title,
+      contentType: props.contentType
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);

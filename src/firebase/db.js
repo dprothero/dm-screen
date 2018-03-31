@@ -15,6 +15,7 @@ export const pushItem = (newItem, oldItem) => {
   const historyRef = database.ref("history");
   historyRef.push({
     title: oldItem.title,
-    url: oldItem.url
+    url: oldItem.url,
+    contentType: oldItem.contentType
   });
 };

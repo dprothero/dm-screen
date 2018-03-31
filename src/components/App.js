@@ -19,6 +19,7 @@ class App extends Component {
       authUser: null,
       url: null,
       title: null,
+      contentType: null
     };
   }
   
@@ -48,6 +49,7 @@ class App extends Component {
                         <AdminPage
                           url={this.state.url}
                           title={this.state.title}
+                          contentType={this.state.contentType}
                           authUser={this.state.authUser}
                         />
                       }
@@ -58,6 +60,7 @@ class App extends Component {
                         <PlayersPage
                           url={this.state.url}
                           title={this.state.title}
+                          contentType={this.state.contentType}
                           authUser={this.state.authUser}
                         />
                       }
