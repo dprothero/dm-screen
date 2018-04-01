@@ -20,6 +20,10 @@
   border-color: lightgray;
 }
 
+.AdminForm div button {
+  margin-right: 16px;
+}
+
 hr {
   border-width: 1px;
   border-style: solid;

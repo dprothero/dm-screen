@@ -7,7 +7,9 @@ class HistoryList extends Component {
       return (
         <tr key={key}>
           <td>
-            <button type="button" onClick={this.deleteItem.bind(this, item)}>X</button>
+            <button type="button" 
+                    onClick={this.deleteItem.bind(this, item)}
+                    className="btn btn-danger btn-sm">X</button>
           </td>
           <td>
             <a href="" onClick={this.clickItem.bind(this, item)}>{item.title}</a>

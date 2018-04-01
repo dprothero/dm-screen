@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import copy from 'copy-to-clipboard';
 import Navigation from './Navigation';
 import HistoryList from './HistoryList';
 import withAuthorization from './withAuthorization';
@@ -9,17 +10,27 @@ class AdminPage extends Component {
   constructor(props) {
     super(props);
 
+    const params = new URLSearchParams(props.location.search);
+    const searchUrl = params.get('url');
+    const searchTitle = params.get('title');
+
     this.state = {
-      url: props.url,
-      title: props.title,
+      url: searchUrl || props.url,
+      title: searchTitle || props.title,
       contentType: props.contentType
     };
 
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleUrlChange = this.handleUrlChange.bind(this);
     this.pushItem = this.pushItem.bind(this);
+    this.getLink = this.getLink.bind(this);
     this.selectItem = this.selectItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+
+    if(searchUrl || searchTitle) {
+      this.pushItem();
+      props.history.push("/admin");
+    }
   }
 
   render() {
@@ -39,18 +50,19 @@ class AdminPage extends Component {
           </div>
           <div>
             <strong />
-            <button type="button" onClick={this.pushItem}>
+            <button type="button" className="btn btn-primary" onClick={this.pushItem}>
               Push
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={this.getLink}>
+              <span role="img" aria-labelledby="btnGetLink">🔗</span> <span id="btnGetLink">Get Link</span>
             </button>
           </div>
         </form>
         <hr />
-        <div>
-          <h2>History</h2>
-          <HistoryList urlHistory={this.props.urlHistory}
-                       selectItem={this.selectItem} 
-                       deleteItem={this.deleteItem} />
-        </div>
+        <h2>History</h2>
+        <HistoryList urlHistory={this.props.urlHistory}
+                      selectItem={this.selectItem} 
+                      deleteItem={this.deleteItem} />
       </div>
     );
   }
@@ -65,6 +77,15 @@ class AdminPage extends Component {
 
   pushItem() {
     db.pushItem(this.state, this.props);
+  }
+
+  getLink() {    
+    const title = encodeURIComponent(this.state.title);
+    const url = encodeURIComponent(this.state.url);
+    const search = `?title=${title}&url=${url}`;
+    const adminUrl = window.location.origin + window.location.pathname + search;
+    copy(adminUrl);
+    console.log(adminUrl);
   }
 
   selectItem(item) {
