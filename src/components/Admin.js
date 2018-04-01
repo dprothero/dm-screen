@@ -19,6 +19,7 @@ class AdminPage extends Component {
     this.handleUrlChange = this.handleUrlChange.bind(this);
     this.pushItem = this.pushItem.bind(this);
     this.selectItem = this.selectItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   render() {
@@ -46,7 +47,9 @@ class AdminPage extends Component {
         <hr />
         <div>
           <h2>History</h2>
-          <HistoryList urlHistory={this.props.urlHistory} selectItem={this.selectItem} />
+          <HistoryList urlHistory={this.props.urlHistory}
+                       selectItem={this.selectItem} 
+                       deleteItem={this.deleteItem} />
         </div>
       </div>
     );
@@ -68,6 +71,10 @@ class AdminPage extends Component {
     this.setState(item, () => {
       this.pushItem();
     });
+  }
+
+  deleteItem(item) {
+    db.deleteHistoryItem(item);
   }
 }
 

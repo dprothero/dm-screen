@@ -17,3 +17,14 @@ export const pushItem = (newItem, oldItem) => {
     url: newItem.url
   });
 };
+
+export const deleteHistoryItem = (item) => {
+  const ref = database.ref("/history").orderByChild("url").equalTo(item.url);
+  ref.once("value", data => {
+    const records = data.val();
+    if(records) {
+      const key = Object.keys(records)[0];
+      database.ref(`/history/${key}`).remove();
+    }
+  });
+};
