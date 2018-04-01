@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navigation from './Navigation';
+import HistoryList from './HistoryList';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
 import './Admin.css';
@@ -17,6 +18,7 @@ class AdminPage extends Component {
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleUrlChange = this.handleUrlChange.bind(this);
     this.pushItem = this.pushItem.bind(this);
+    this.selectItem = this.selectItem.bind(this);
   }
 
   render() {
@@ -41,6 +43,11 @@ class AdminPage extends Component {
             </button>
           </div>
         </form>
+        <hr />
+        <div>
+          <h2>History</h2>
+          <HistoryList urlHistory={this.props.urlHistory} selectItem={this.selectItem} />
+        </div>
       </div>
     );
   }
@@ -55,6 +62,12 @@ class AdminPage extends Component {
 
   pushItem() {
     db.pushItem(this.state, this.props);
+  }
+
+  selectItem(item) {
+    this.setState(item, () => {
+      this.pushItem();
+    });
   }
 }
 

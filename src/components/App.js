@@ -19,28 +19,26 @@ class App extends Component {
       authUser: null,
       url: null,
       title: null,
-      contentType: null
+      contentType: null,
+      urlHistory: {}
     };
   }
   
   componentDidMount() {
     firebase.auth.onAuthStateChanged(authUser => {
       authUser
-        ? this.setState(() => ({ authUser }))
-        : this.setState(() => ({ authUser: null }));
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
     });
 
     db.onCurrentViewChanged(snapshot => {
-      this.setState(() => (snapshot.val()));
+      this.setState(snapshot.val());
     });
 
-    db.findHistoryItemByUrl("https://i2.wp.com/nerdarchy.com/wp-content/uploads/2018/01/Lay_on_Hands.jpg?fit=482%2C400&ssl=1", snapshot => {
+    db.onHistoryChanged(snapshot => {
       const records = snapshot.val();
       if(records) {
-        const foundRecord = records[Object.keys(records)[0]];
-        console.log(foundRecord);
-      } else {
-        console.log('Not found');
+        this.setState({urlHistory: records});
       }
     });
   }
@@ -60,6 +58,7 @@ class App extends Component {
                           url={this.state.url}
                           title={this.state.title}
                           contentType={this.state.contentType}
+                          urlHistory={this.state.urlHistory}
                           authUser={this.state.authUser}
                         />
                       }

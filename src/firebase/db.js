@@ -5,9 +5,9 @@ export const onCurrentViewChanged = (fn) => {
   ref.on("value", fn);
 };
 
-export const findHistoryItemByUrl = (url, fn) => {
-  const ref = database.ref("/history").orderByChild('url').equalTo(url);
-  ref.once("value").then(fn);
+export const onHistoryChanged = (fn) => {
+  const ref = database.ref("/history");
+  ref.on("value", fn);
 };
 
 export const pushItem = (newItem, oldItem) => {
