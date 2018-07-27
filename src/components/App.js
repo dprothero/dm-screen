@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import LandingPage from './Landing';
 import AdminPage from './Admin';
@@ -23,12 +20,10 @@ class App extends Component {
       urlHistory: {}
     };
   }
-  
+
   componentDidMount() {
     firebase.auth.onAuthStateChanged(authUser => {
-      authUser
-        ? this.setState({ authUser })
-        : this.setState({ authUser: null });
+      authUser ? this.setState({ authUser }) : this.setState({ authUser: null });
     });
 
     db.onCurrentViewChanged(snapshot => {
@@ -37,8 +32,8 @@ class App extends Component {
 
     db.onHistoryChanged(snapshot => {
       const records = snapshot.val();
-      if(records) {
-        this.setState({urlHistory: records});
+      if (records) {
+        this.setState({ urlHistory: records });
       }
     });
   }
@@ -47,32 +42,31 @@ class App extends Component {
     return (
       <Router>
         <div id="router">
+          <Route exact path={routes.LANDING} component={() => <LandingPage authUser={this.state.authUser} />} />
           <Route
-            exact path={routes.LANDING}
-            component={() => <LandingPage authUser={this.state.authUser} />}
+            exact
+            path={routes.ADMIN}
+            component={() => (
+              <AdminPage
+                url={this.state.url}
+                title={this.state.title}
+                contentType={this.state.contentType}
+                urlHistory={this.state.urlHistory}
+                authUser={this.state.authUser}
+              />
+            )}
           />
           <Route
-            exact path={routes.ADMIN}
-            component={() => 
-                        <AdminPage
-                          url={this.state.url}
-                          title={this.state.title}
-                          contentType={this.state.contentType}
-                          urlHistory={this.state.urlHistory}
-                          authUser={this.state.authUser}
-                        />
-                      }
-          />
-          <Route
-            exact path={routes.PLAYERS}
-            component={() => 
-                        <PlayersPage
-                          url={this.state.url}
-                          title={this.state.title}
-                          contentType={this.state.contentType}
-                          authUser={this.state.authUser}
-                        />
-                      }
+            exact
+            path={routes.PLAYERS}
+            component={() => (
+              <PlayersPage
+                url={this.state.url}
+                title={this.state.title}
+                contentType={this.state.contentType}
+                authUser={this.state.authUser}
+              />
+            )}
           />
         </div>
       </Router>

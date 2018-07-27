@@ -11,7 +11,7 @@
   display: inline-block;
 }
 
-.AdminForm div input[type=text] {
+.AdminForm div input[type='text'] {
   width: 500px;
   padding: 8px;
   border-radius: 8px;

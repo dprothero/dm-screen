@@ -7,31 +7,35 @@ class HistoryList extends Component {
       return (
         <tr key={key}>
           <td>
-            <button type="button" 
-                    onClick={this.deleteItem.bind(this, item)}
-                    className="btn btn-danger btn-sm">X</button>
+            <button type="button" onClick={this.deleteItem.bind(this, item)} className="btn btn-danger btn-sm">
+              X
+            </button>
           </td>
           <td>
-            <a href="" onClick={this.clickItem.bind(this, item)}>{item.title}</a>
+            <a href="" onClick={this.clickItem.bind(this, item)}>
+              {item.title}
+            </a>
           </td>
         </tr>
       );
     });
     return (
-      <table><tbody>{items}</tbody></table>
+      <table>
+        <tbody>{items}</tbody>
+      </table>
     );
   }
 
   clickItem(item, e) {
     e.preventDefault();
-    if(typeof this.props.selectItem === 'function') {
+    if (typeof this.props.selectItem === 'function') {
       this.props.selectItem(item);
     }
   }
 
   deleteItem(item, e) {
     e.preventDefault();
-    if(typeof this.props.deleteItem === 'function') {
+    if (typeof this.props.deleteItem === 'function') {
       this.props.deleteItem(item);
     }
   }

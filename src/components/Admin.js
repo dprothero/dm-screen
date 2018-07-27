@@ -27,9 +27,9 @@ class AdminPage extends Component {
     this.selectItem = this.selectItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
 
-    if(searchUrl || searchTitle) {
+    if (searchUrl || searchTitle) {
       this.pushItem();
-      props.history.push("/admin");
+      props.history.push('/admin');
     }
   }
 
@@ -42,11 +42,11 @@ class AdminPage extends Component {
         <form className="AdminForm">
           <div>
             <strong>Title: </strong>
-            <input type="text" value={this.state.title || ""} onChange={this.handleTitleChange} />
+            <input type="text" value={this.state.title || ''} onChange={this.handleTitleChange} />
           </div>
           <div>
             <strong>Url: </strong>
-            <input type="text" value={this.state.url || ""} onChange={this.handleUrlChange} />
+            <input type="text" value={this.state.url || ''} onChange={this.handleUrlChange} />
           </div>
           <div>
             <strong />
@@ -54,38 +54,39 @@ class AdminPage extends Component {
               Push
             </button>
             <button type="button" className="btn btn-secondary" onClick={this.getLink}>
-              <span role="img" aria-labelledby="btnGetLink">🔗</span> <span id="btnGetLink">Get Link</span>
+              <span role="img" aria-labelledby="btnGetLink">
+                🔗
+              </span>{' '}
+              <span id="btnGetLink">Get Link</span>
             </button>
           </div>
         </form>
         <hr />
         <h2>History</h2>
-        <HistoryList urlHistory={this.props.urlHistory}
-                      selectItem={this.selectItem} 
-                      deleteItem={this.deleteItem} />
+        <HistoryList urlHistory={this.props.urlHistory} selectItem={this.selectItem} deleteItem={this.deleteItem} />
       </div>
     );
   }
 
   handleTitleChange(event) {
-    this.setState({title: event.target.value});
+    this.setState({ title: event.target.value });
   }
 
   handleUrlChange(event) {
-    this.setState({url: event.target.value});
+    this.setState({ url: event.target.value });
   }
 
   pushItem() {
-    db.pushItem(this.state, this.props);
+    db.pushItem(this.state);
   }
 
-  getLink() {    
+  getLink() {
     const title = encodeURIComponent(this.state.title);
     const url = encodeURIComponent(this.state.url);
     const search = `?title=${title}&url=${url}`;
     const adminUrl = window.location.origin + window.location.pathname + search;
     copy(adminUrl);
-    console.log(adminUrl);
+    window.console.log(adminUrl);
   }
 
   selectItem(item) {
@@ -99,6 +100,6 @@ class AdminPage extends Component {
   }
 }
 
-const authCondition = (authUser) => !!authUser;
+const authCondition = authUser => !!authUser;
 
 export default withAuthorization(authCondition)(AdminPage);

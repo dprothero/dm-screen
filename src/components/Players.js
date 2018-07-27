@@ -13,22 +13,15 @@ class PlayersPage extends Component {
   }
 
   render() {
-    if(this.state.url) {
-
-      if(this.state.contentType && this.state.contentType.startsWith('image')) {
-        return (
-          <img src={this.state.url} title={this.state.title} alt={this.state.title} />
-        );
+    if (this.state.url) {
+      if (this.state.contentType && this.state.contentType.startsWith('image')) {
+        return <img src={this.state.url} title={this.state.title} alt={this.state.title} />;
       }
 
-      return (
-        <iframe src={this.state.url} title={this.state.title} />
-      );
+      return <iframe src={this.state.url} title={this.state.title} />;
     }
 
-    return (
-      <h1>Waiting for the DM... { this.state.contentType }</h1>
-    );
+    return <h1>Waiting for the DM... {this.state.contentType}</h1>;
   }
 }
 
