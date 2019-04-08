@@ -12,9 +12,9 @@ class HistoryList extends Component {
             </button>
           </td>
           <td>
-            <a href="" onClick={this.clickItem.bind(this, item)}>
-              {item.title}
-            </a>
+            <button type="button" className="hyperlinkButton" onClick={this.clickItem.bind(this, item)}>
+              {item.title} ({item.contentType})
+            </button>
           </td>
         </tr>
       );

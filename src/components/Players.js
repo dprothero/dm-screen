@@ -14,6 +14,7 @@ class PlayersPage extends Component {
 
   render() {
     if (this.state.url) {
+      window.console.log(this.state);
       if (this.state.contentType && this.state.contentType.startsWith('image')) {
         return <img src={this.state.url} title={this.state.title} alt={this.state.title} />;
       }

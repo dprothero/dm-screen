@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
 import copy from 'copy-to-clipboard';
-import Navigation from './Navigation';
-import HistoryList from './HistoryList';
-import withAuthorization from './withAuthorization';
+import React, { Component } from 'react';
 import { db } from '../firebase';
 import './Admin.css';
+import HistoryList from './HistoryList';
+import Navigation from './Navigation';
+import withAuthorization from './withAuthorization';
 
 class AdminPage extends Component {
   constructor(props) {
@@ -86,7 +86,6 @@ class AdminPage extends Component {
     const search = `?title=${title}&url=${url}`;
     const adminUrl = window.location.origin + window.location.pathname + search;
     copy(adminUrl);
-    window.console.log(adminUrl);
   }
 
   selectItem(item) {
